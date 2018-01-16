@@ -2,6 +2,8 @@ package com.example.android.mapmarkerfetch;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -35,6 +37,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -143,7 +147,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             MarkerOptions marker = new MarkerOptions().position(new LatLng(Latitude, Longitude)).title(name);
             mMap.addMarker(marker);
         }
-
+//        GetAddress("24.859957","67.049079");
+        GetAddress("24.859884","67.047375");
 
     }
     @Override
@@ -162,5 +167,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 break;
         }
+    }
+
+    //Geocoder function that received two parameter latitiude and longitude as a String and return the Location name as a string  
+    public String GetAddress(String lat, String lon)
+    {
+        Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
+        String ret = "";
+        try {
+            List<Address> addresses = geocoder.getFromLocation(Double.parseDouble(lat), Double.parseDouble(lon), 1);
+            if(addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                ret = returnedAddress.getAddressLine(0);
+                String[] name = new String[3];
+                name = ret.split(",");
+                ret = name[0];
+            }
+            else{
+                ret = "No Address returned!";
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ret = "Can't get Address!";
+        }
+        return ret;
     }
 }
