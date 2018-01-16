@@ -148,7 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(marker);
         }
 //        GetAddress("24.859957","67.049079");
-        GetAddress("24.859884","67.047375");
+//        GetAddress("24.859884","67.047375");
 
     }
     @Override
@@ -169,7 +169,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    //Geocoder function that received two parameter latitiude and longitude as a String and return the Location name as a string  
+    //Geocoder function that received two parameter latitiude and longitude as a String and return the Location name as a string
     public String GetAddress(String lat, String lon)
     {
         Geocoder geocoder = new Geocoder(this, Locale.ENGLISH);
